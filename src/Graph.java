@@ -1,6 +1,8 @@
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Stack;
 import java.util.ArrayList;
 
@@ -75,8 +77,8 @@ public class Graph {
     		Node currentNode = stack.pop();
     		
     		// if node hasn't been visited
-    		if (!currentNode.getIfVisited()) {
-    			currentNode.setVisited(true); // set to visited
+    		if (!visitedNodes.containsKey(currentNode.getValue())) {
+    			visitedNodes.put(currentNode.getValue(), true); // add to visited nodes
     			
     			// add each connected node to the stack
     			for (Node connectedNode : this.getNodes().get(currentNode.getValue())) {
@@ -85,13 +87,40 @@ public class Graph {
     			
     			System.out.println(currentNode.getValue());
     		}
-    		
     	}
-    	// check if visited
-    	// add self to visited 
-    	// add connected nodes to stack
-    	// print self
-    	// continue (pop) stack
+    }
+    
+    // breadth first search
+    public void breadthFirstSearch(Node node) {
+    	Queue<Node> queue = new LinkedList<>();
+    	HashMap<Integer, Boolean> visitedNodes = new HashMap<>();
+
+    	// check if node is null first
+    	if (node == null) {
+    		System.err.println("Node is null!");
+    		return;
+    	}
+    	
+    	// add node to stack
+    	queue.add(node);
+    	
+    	// traverse while stack isn't empty
+    	while (!queue.isEmpty()) {   
+    		// move on to next node in stack
+    		Node currentNode = queue.poll();
+    		
+    		// if node hasn't been visited
+    		if (!visitedNodes.containsKey(currentNode.getValue())) {
+    			visitedNodes.put(currentNode.getValue(), true); // add to visited nodes
+    			
+    			// add each connected node to the stack
+    			for (Node connectedNode : this.getNodes().get(currentNode.getValue())) {
+    				queue.add(connectedNode);
+    			}
+    			
+    			System.out.println(currentNode.getValue());
+    		}
+    	}
     }
     
     

@@ -15,7 +15,8 @@ public class Driver {
 		graph.addEdge(two, four);
 		graph.addEdge(two, five);
 
-		graph.depthFirstSearch(two);
+		//graph.depthFirstSearch(one);
+		graph.breadthFirstSearch(one);
 		/***
 		 * Test cases
 		 */
