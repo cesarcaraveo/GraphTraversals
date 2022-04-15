@@ -1,5 +1,2 @@
 # GraphTraversals
-Project with a graph to implement graph-traversal algorithms
-
-Current implemented algorithms:
-- Depth First Search
+Project with a graph to implement Breadth-First Search and Depth-First Search
