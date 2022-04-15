@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 import java.util.ArrayList;
 
 public class Graph {
@@ -51,6 +52,59 @@ public class Graph {
         nodes.get(secondNode.getValue()).add(firstNode);
     }
     
+    /**
+     * Search/Traversal Algorithms
+     */
+    // depth-first search from a specific node
+    public void depthFirstSearch(Node node) {
+    	Stack<Node> stack = new Stack<>();
+    	HashMap<Integer, Boolean> visitedNodes = new HashMap<>();
+    	
+    	// check if node is null first
+    	if (node == null) {
+    		System.err.println("Node is null!");
+    		return;
+    	}
+    	
+    	// add node to stack
+    	stack.push(node);
+    	
+    	// traverse while stack isn't empty
+    	while (!stack.empty()) {   
+    		// move on to next node in stack
+    		Node currentNode = stack.pop();
+    		
+    		// if node hasn't been visited
+    		if (!currentNode.getIfVisited()) {
+    			currentNode.setVisited(true); // set to visited
+    			
+    			// add each connected node to the stack
+    			for (Node connectedNode : this.getNodes().get(currentNode.getValue())) {
+    				stack.push(connectedNode);
+    			}
+    			
+    			System.out.println(currentNode.getValue());
+    		}
+    		
+    	}
+    	// check if visited
+    	// add self to visited 
+    	// add connected nodes to stack
+    	// print self
+    	// continue (pop) stack
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+     * Helper Methods
+     */
+    
     // ensures no duplicate nodes are created
     public boolean doesExist(int nodeValue) {
     	return nodes.containsKey(nodeValue);
@@ -67,7 +121,7 @@ public class Graph {
     	// if graph is not empty, print out every node and its connected nodes
     	else {
     		for(int node : nodes.keySet()) {
-    			System.out.print("Node " + node + " || Connected Nodes: ");
+    			System.out.println("Node " + node + " || Connected Nodes: ");
     			printConnectedNodes(this, node);
     		}
     	}
@@ -93,7 +147,7 @@ public class Graph {
     		// print all node values
     		else {
     			for (Node connectedNode : connectedNodes) {
-    				System.out.println(connectedNode.getValue());
+    				System.out.println(connectedNode.getValue() + " ");
     			}
     		}
     	}
