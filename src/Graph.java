@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 
 public class Graph {
@@ -38,13 +39,15 @@ public class Graph {
         	return;
         }
         
-        nodes.get(firstNode.getValue()).add(secondNode);
-        
-        // add node to other node's list
+        // if second node hasn't been created, must create it and add it first
         if (!nodes.containsKey(secondNode.getValue())) {        	
             nodes.put(secondNode.getValue(), new ArrayList<>());
         }
         
+        // add first node to second node's list
+        nodes.get(firstNode.getValue()).add(secondNode);
+        
+        // add second node to other first node's list
         nodes.get(secondNode.getValue()).add(firstNode);
     }
     
@@ -53,17 +56,34 @@ public class Graph {
     	return nodes.containsKey(nodeValue);
     }
     
+    // prints all the nodes and their edges
+    public void printGraph() {
+    	// if graph is empty, print out empty graph
+    	if (nodes.keySet().size() == 0) {
+    		System.out.println("Graph is empty!");
+    	}
+    	
+    	
+    	// if graph is not empty, print out every node and its connected nodes
+    	else {
+    		for(int node : nodes.keySet()) {
+    			System.out.print("Node " + node + " || Connected Nodes: ");
+    			printConnectedNodes(this, node);
+    		}
+    	}
+    }
+    
     // prints all nodes the argument node is connected to
-    public void printConnectedNodes(Graph graph, Node node) {
+    public void printConnectedNodes(Graph graph, int node) {
     	// check to make sure node exists
-    	if (!doesExist(node.getValue())) {
+    	if (!doesExist(node)) {
     		System.err.println("Node doesn't exist!");
     	}
     	
     	// if node does exist
     	else {
     		// get list of connected nodes
-    		List<Node> connectedNodes = graph.getNodes().get(node.getValue());
+    		List<Node> connectedNodes = graph.getNodes().get(node);
     		
     		// if list is empty, print message
     		if (connectedNodes.isEmpty()) {
